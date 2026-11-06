@@ -43,7 +43,7 @@ export const doctors = [
       "Specialist consultant focused on restorative care, robotic gait analysis, and movement disorders.",
     time: "15:00 – 17:00 hrs",
     days: "Wednesday & Friday",
-    image: "/doctors/Dr Sreenath P R.png",
+    image: "/doctors/Dr_Sreenath_P_R.png",
   },
 ];
 
