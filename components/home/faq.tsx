@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { Plus } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
 
@@ -32,12 +32,12 @@ export function Faq() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 sm:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-[1200px] gap-12 px-6 sm:px-12 lg:px-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+    <section id="faq" className="py-14 sm:py-16 lg:py-20 border-b border-gray-200">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:px-12 lg:px-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div>
           <SectionLabel>Frequently Asked Questions</SectionLabel>
 
-          <h2 className="text-3xl font-normal font-serif tracking-[-0.03em] sm:text-4xl">
+          <h2 className="text-3xl font-medium font-[family-name:var(--font-heading)] tracking-[-0.03em] sm:text-4xl">
             Have questions before you visit?
           </h2>
 
@@ -54,7 +54,7 @@ export function Faq() {
               className="px-0 hover:bg-transparent hover:underline !gap-2"
             >
               Ask our team
-              <ArrowRight size={16} />
+              
             </Button>
           </div>
         </div>
@@ -70,18 +70,22 @@ export function Faq() {
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-5 py-6 text-left"
+                  className="group flex w-full items-center justify-between gap-5 py-6 text-left cursor-pointer"
                 >
-                  <span className="text-[15px] font-semibold">
+                  <span className="text-[15px] font-semibold text-[#061627]">
                     {faq.question}
                   </span>
 
-                  <ChevronDown
-                    size={19}
-                    className={`shrink-0 transition-transform ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  />
+                  {/* Boxed plus icon that rotates into a close icon without color changes */}
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-300 bg-gray-50 text-[#061627] transition-colors">
+                    <Plus
+                      size={16}
+                      strokeWidth={2}
+                      className={`transition-transform duration-300 ${
+                        isOpen ? "rotate-45" : "rotate-0"
+                      }`}
+                    />
+                  </div>
                 </button>
 
                 <div

@@ -22,12 +22,12 @@ const neuroServices = [
 
 export function NeuroRehab() {
   return (
-    <section id="neuro" className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-0">
-      <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1fr_1fr] lg:items-stretch">
-        <div className="flex items-center justify-center p-6 sm:p-10 lg:py-16 lg:pl-12 lg:pr-0 xl:pl-16 w-full">
-          <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-[520px] w-full overflow-hidden rounded-xl bg-gray-200">
+    <section id="neuro" className="relative bg-white py-10 sm:py-14 lg:py-0">
+      <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1fr_1fr] lg:items-start">
+        <div className="p-6 sm:p-8 lg:sticky lg:top-20 lg:py-12 lg:pl-12 lg:pr-0 xl:pl-16 w-full self-start">
+          <div className="relative min-h-[320px] sm:min-h-[380px] lg:min-h-[440px] w-full overflow-hidden rounded-xl bg-gray-200 shadow-sm">
             <Image
-              src="/baner/neuro-rehab.jpg"
+              src="/categories/Neural Pathways in Focus.png"
               alt="Stroke and neurological rehabilitation"
               fill
               className="object-cover"
@@ -36,20 +36,20 @@ export function NeuroRehab() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center px-6 py-12 sm:px-12 sm:py-16 lg:py-24 lg:pl-20 lg:pr-16 xl:pl-24 xl:pr-20">
+        <div className="flex flex-col justify-center px-6 py-8 sm:px-12 sm:py-12 lg:py-16 lg:pl-16 lg:pr-14 xl:pl-20 xl:pr-18">
           <SectionLabel>Stroke & Neuro Rehabilitation</SectionLabel>
 
-          <h2 className="max-w-[600px] text-3xl font-normal font-serif leading-tight tracking-[-0.03em] sm:text-4xl lg:text-5xl text-[#061627]">
+          <h2 className="max-w-[600px] text-2xl font-medium font-[family-name:var(--font-heading)] leading-tight tracking-[-0.03em] sm:text-3xl lg:text-4xl text-[#061627]">
             Rebuilding movement, confidence and independence.
           </h2>
 
-          <p className="mt-6 max-w-[600px] text-[16px] leading-7 text-[#52606B]">
+          <p className="mt-4 max-w-[600px] text-[15px] leading-relaxed text-[#52606B]">
             Stroke recovery can involve many different challenges. Our
             rehabilitation approach brings medical assessment and multiple
             therapy disciplines together to support meaningful progress.
           </p>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
             {neuroServices.map(({ label, icon: Icon }) => (
               <div
                 key={label}
@@ -69,7 +69,7 @@ export function NeuroRehab() {
               className="mt-8"
             >
               Enquire about neuro rehabilitation
-              <ArrowRight size={17} />
+
             </Button>
           </div>
         </div>

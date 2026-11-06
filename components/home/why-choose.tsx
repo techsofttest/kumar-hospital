@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { Stethoscope, Activity, Zap, ShieldCheck, ArrowRight } from "lucide-react";
+import { Stethoscope, Activity, Zap, ShieldCheck } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
 
@@ -28,28 +27,17 @@ const reasons = [
 
 export function WhyChoose() {
   return (
-    <section className="relative overflow-hidden bg-black py-24 text-white sm:py-28 lg:py-32">
-      {/* Background Image */}
-      <Image
-        src="/baner/b2.png"
-        alt="Why Choose Kumar Hospital"
-        fill
-        className="object-cover object-center"
-      />
-
-      {/* Dark overlay for contrast and legibility */}
-      <div className="absolute inset-0 bg-black/60" />
-
+    <section className="relative overflow-hidden bg-[#F4F5F7] py-14 sm:py-16 lg:py-20">
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
-        <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
+        <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
           <div>
-            <SectionLabel light>Why Choose Us</SectionLabel>
+            <SectionLabel>Why Choose Us</SectionLabel>
 
-            <h2 className="max-w-[500px] text-3xl font-normal font-serif leading-tight tracking-[-0.03em] sm:text-4xl lg:text-5xl">
+            <h2 className="max-w-[500px] text-3xl font-medium font-[family-name:var(--font-heading)] leading-tight tracking-[-0.03em] sm:text-4xl text-[#061627]">
               Care that connects expertise, technology and recovery.
             </h2>
 
-            <p className="mt-6 max-w-[480px] text-[15px] leading-7 text-white/80">
+            <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-[#52606B]">
               We focus on practical outcomes: reducing pain, improving
               movement, rebuilding independence and helping patients get
               back to their lives.
@@ -59,28 +47,27 @@ export function WhyChoose() {
               href="#appointment"
               variant="primary"
               size="normal"
-              className="mt-8"
+              className="mt-6"
             >
               Talk to our team
-              <ArrowRight size={17} />
             </Button>
           </div>
 
-          <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+          <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
             {reasons.map((item) => {
               const Icon = item.icon;
 
               return (
-                <div key={item.title} className=" pt-6">
+                <div key={item.title} className="pt-2">
                   <Icon
-                    size={45}
+                    size={40}
                     strokeWidth={1.6}
                     className="text-[#CD9E57]"
                   />
-                  <h3 className="mt-5 text-[18px] font-semibold text-white">
+                  <h3 className="mt-4 text-[17px] font-semibold text-[#061627]">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-6 text-white/75">
+                  <p className="mt-1.5 text-lg leading-6 text-black/90">
                     {item.text}
                   </p>
                 </div>
@@ -92,4 +79,3 @@ export function WhyChoose() {
     </section>
   );
 }
-

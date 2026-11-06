@@ -1,7 +1,7 @@
 import { Header } from "@/components/global/header";
 import { Footer } from "@/components/global/footer";
 import { Hero } from "@/components/home/hero";
-import { PrimaryServices } from "@/components/home/primary-services";
+import { AppointmentBooking } from "@/components/home/appointment-booking";
 import { About } from "@/components/home/about";
 import { WhyChoose } from "@/components/home/why-choose";
 import { NeuroRehab } from "@/components/home/neuro-rehab";
@@ -18,14 +18,14 @@ export default function HomePage() {
     <main className="min-h-screen bg-white text-[#111827]">
       <Header />
       <Hero />
-      <PrimaryServices />
+      <AppointmentBooking />
       <About />
       <WhyChoose />
       <NeuroRehab />
       <BackAndNeckPain />
+      <Doctors />
       <Treatments />
       <Facilities />
-      <Doctors />
       <Testimonials />
       <Faq />
       <AppointmentCta />

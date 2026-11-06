@@ -1,133 +1,145 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { BrainIcon, BackPainIcon } from "@/components/ui/category-icons";
+"use client";
 
-const primaryServices = [
-  {
-    label: "Stroke & Neuro Rehabilitation",
-    href: "#neuro",
-    icon: BrainIcon,
-  },
-  {
-    label: "Back & Neck Pain",
-    href: "#pain",
-    icon: BackPainIcon,
-  },
-];
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { NavigationDrawer } from "@/components/global/navigation-drawer";
+import { HamburgerButton } from "@/components/global/hamburger-button";
 
 const navLinks = [
-  { label: "About Us", href: "#about" },
+  { label: "Stroke & Neuro Rehabilitation", href: "#neuro", hasPlus: true },
+  { label: "Back & Neck Pain", href: "#pain", hasPlus: true },
   { label: "Our Doctors", href: "#doctors" },
   { label: "Treatments", href: "#treatments" },
-  { label: "Services", href: "#services" },
   { label: "Facilities", href: "#facilities" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact Us", href: "#contact" },
 ];
 
 export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-[#061627]/10 bg-white/95 backdrop-blur-md shadow-sm">
-      {/* Top Main Bar */}
-      <div className="relative mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-6 sm:px-12 lg:px-20 xl:px-24">
-        {/* Left area: Logo + 2 Primary Service Categories aligned to the very right of the logo */}
-        <div className="flex items-center gap-4 sm:gap-6">
-          {/* Overlapping Vertical Logo with White Card Container */}
+    <>
+      <header
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isScrolled
+          ? "bg-white text-[#061627] backdrop-blur-md border-b border-gray-200/80 shadow-xs"
+          : "bg-gradient-to-b from-black/80 via-black/40 to-transparent text-white"
+          }`}
+      >
+        <div className="relative mx-auto flex h-[74px] max-w-[1440px] items-center justify-between px-6 sm:px-12 lg:px-20 xl:px-24">
+          {/* Left: Overlapping Vertical Logo with White Banner Shape */}
           <div className="relative z-30 shrink-0">
             <a
               href="#"
-              className="absolute -top-1 left-0 flex h-[126px] w-[130px] sm:w-[144px] flex-col items-center justify-center rounded-b-lg bg-white p-3 transition-transform hover:scale-[1.02]"
+              className="group absolute -top-4 left-0 flex h-[142px] w-[130px] sm:w-[144px] flex-col items-center justify-start transition-transform hover:scale-[1.02]"
             >
-              <div className="relative h-full w-full">
-                <Image
-                  src="/logo/logo.png"
-                  alt="Kumar Hospital"
-                  fill
-                  priority
-                  className="object-contain object-center"
+              {/* White background shape with chevron/ribbon bottom */}
+              <div className="absolute inset-0 bg-white [clip-path:polygon(0_0,100%_0,100%_calc(100%-14px),50%_100%,0_calc(100%-14px))]" />
+
+              {/* Bottom V-edge border line only */}
+              <svg
+                className="absolute inset-x-0 bottom-0 w-full h-[15px] pointer-events-none z-10"
+                viewBox="0 0 100 15"
+                preserveAspectRatio="none"
+              >
+                <polyline
+                  points="0,1 50,14 100,1"
+                  fill="none"
+                  stroke="#E5E7EB"
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
                 />
+              </svg>
+
+              <div className="relative z-10 flex h-[120px] w-full items-center justify-center pt-2 px-1">
+                <div className="relative h-full w-full">
+                  <Image
+                    src="/logo/logo.png"
+                    alt="Kumar Hospital"
+                    fill
+                    priority
+                    className="object-contain object-center scale-110"
+                  />
+                </div>
               </div>
             </a>
-            {/* Spacer in the top bar to reserve room for the logo width */}
+            {/* Spacer to reserve room for logo width */}
             <div className="h-10 w-[130px] sm:w-[144px]" />
           </div>
 
-          {/* 2 Primary Service Categories directly to the right of the logo */}
-          <div className="hidden md:flex items-center gap-2 lg:gap-3">
-            {primaryServices.map((service) => {
-              const Icon = service.icon;
-
-              return (
-                <a
-                  key={service.label}
-                  href={service.href}
-                  className="group flex items-center gap-2.5 rounded-xl px-4 py-2 transition-all duration-200 select-none shadow-xs hover:shadow-sm hover:scale-[1.02] active:scale-[0.98] bg-gray-100 text-[#061627] hover:bg-gray-200"
-                >
-                  <div className="flex h-6 w-6 items-center justify-center transition-transform duration-200 group-hover:scale-110 text-[#CD9E57]">
-                    <Icon className="w-8 h-8" color="#CD9E57" />
-                  </div>
-                  <span className="text-md underline font-semibold tracking-tight whitespace-nowrap">
-                    {service.label}
-                  </span>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Right side: Emergency contact + CTA Button */}
-        <div className="flex items-center gap-4 sm:gap-6">
-          {/* Quick contact highlight */}
-          <a
-            href="tel:+919048178888"
-            className="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-[#061627] hover:text-[#1D4ED8] transition-colors shrink-0"
-          >
-            <span className="text-gray-500 font-normal">Emergency / OPD:</span>
-            <span className="underline">+91 90481 78888</span>
-          </a>
-
-          {/* Book an Appointment Button */}
-          <Button
-            href="#appointment"
-            variant="primary"
-            size="small"
-            className="hidden sm:inline-flex"
-          >
-            Book an Appointment
-            <ArrowRight size={15} />
-          </Button>
-
-          <Button
-            href="#appointment"
-            variant="primary"
-            size="small"
-            className="sm:hidden"
-          >
-            Book
-          </Button>
-        </div>
-      </div>
-
-      {/* Bottom Menu Bar for Navigation Links */}
-      <div className="relative z-10 border-t border-[#E5E7EB] bg-white backdrop-blur-md">
-        <div className="mx-auto flex h-[46px] max-w-[1440px] items-center justify-end px-6 sm:px-12 lg:px-20 xl:px-24 overflow-x-auto scrollbar-none">
-          {/* Nav links aligned to the right edge of bottom menu */}
-          <nav className="flex items-center gap-6 sm:gap-8 whitespace-nowrap pl-[142px] sm:pl-[160px]">
-            {navLinks.map(({ label, href }) => (
+          {/* Center/Right: Navigation Links (single row) */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 whitespace-nowrap pl-4">
+            {navLinks.map(({ label, href, hasPlus }) => (
               <a
                 key={label}
                 href={href}
-                className="text-sm font-medium text-[#4B5563] transition-colors hover:text-[#1D4ED8]"
+                className={`group flex items-center gap-1.5 text-[13.5px] font-medium transition-colors ${isScrolled
+                  ? "text-[#4B5563] hover:text-[#061627]"
+                  : "text-white/85 hover:text-white"
+                  }`}
               >
-                {label}
+                <span>{label}</span>
+                {hasPlus && (
+                  <Plus
+                    size={14}
+                    strokeWidth={3}
+                    className={
+                      isScrolled
+                        ? "text-gray-800 group-hover:text-[#061627]"
+                        : "text-white"
+                    }
+                  />
+                )}
               </a>
             ))}
           </nav>
+
+          {/* Right: Book Appointment Button + Animated Hamburger Button */}
+          <div className="flex items-center gap-3">
+            <Button
+              href="#appointment"
+              variant={isScrolled ? "primary" : "white"}
+              size="small"
+              className="hidden sm:inline-flex transition-all duration-300"
+            >
+              Book an Appointment
+            </Button>
+
+            <Button
+              href="#appointment"
+              variant={isScrolled ? "primary" : "white"}
+              size="small"
+              className="sm:hidden transition-all duration-300"
+            >
+              Book
+            </Button>
+
+            {/* Animated Hamburger Button without box container */}
+            <HamburgerButton
+              isOpen={isDrawerOpen}
+              isScrolled={isScrolled}
+              onClick={() => setIsDrawerOpen((prev) => !prev)}
+            />
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Navigation Drawer Component */}
+      <NavigationDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
+    </>
   );
 }

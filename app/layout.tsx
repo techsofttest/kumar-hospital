@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 
-const serifFont = Cormorant_Garamond({
+const headingFont = Outfit({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-serif",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-heading",
   display: "swap",
 });
 
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${serifFont.variable} ${sansFont.variable}`}>
+    <html lang="en" className={`${headingFont.variable} ${sansFont.variable}`}>
       <body className="font-sans">{children}</body>
     </html>
   );

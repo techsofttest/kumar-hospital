@@ -1,32 +1,45 @@
 import Image from "next/image";
-import { Clock3, CalendarDays } from "lucide-react";
+import Link from "next/link";
+import { Clock3, Calendar, ArrowRight } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
 
 export const doctors = [
   {
-    name: "Dr Sasikumar",
-    role: "Physical Medicine & Rehabilitation",
+    prefix: "Dr.",
+    name: "Sasikumar",
+    role: "Physical Medicine & Rehabilitation Specialist",
+    description:
+      "Specialising in physical medicine, musculoskeletal recovery, and personalized rehabilitation protocols.",
     time: "08:00 – 13:00 hrs",
     days: "Mon, Tue, Wed, Fri, Sat",
     image: "/doctors/DR_ SASIKUMAR.png",
   },
   {
-    name: "Dr Malini Sasikumar",
+    prefix: "Dr.",
+    name: "Malini Sasikumar",
     role: "Specialist Consultant",
+    description:
+      "Expert consultant combining clinical precision with dedicated patient care for neuro & spine recovery.",
     time: "08:00 – 13:00 hrs",
     days: "Mon, Tue, Wed, Fri, Sat",
     image: "/doctors/DR_MALINI SASIKUMAR.png",
   },
   {
-    name: "Dr Sruthi Sasikumar",
+    prefix: "Dr.",
+    name: "Sruthi Sasikumar",
     role: "Neurologist & Pain Specialist",
+    description:
+      "Dedicated to advanced stroke recovery, neurological disorders, and interventional pain therapies.",
     time: "08:00 – 13:00 hrs",
     days: "Mon, Tue, Wed, Fri, Sat",
     image: "/doctors/DR_SRUTHI SASIKUMAR - Copy.png",
   },
   {
-    name: "Dr Sreenath P R",
+    prefix: "Dr.",
+    name: "Sreenath P R",
     role: "Specialist Consultant",
+    description:
+      "Specialist consultant focused on restorative care, robotic gait analysis, and movement disorders.",
     time: "15:00 – 17:00 hrs",
     days: "Wednesday & Friday",
     image: "/doctors/Dr Sreenath P R.png",
@@ -35,60 +48,73 @@ export const doctors = [
 
 export function Doctors() {
   return (
-    <section id="doctors" className="py-24 sm:py-28 lg:py-32">
+    <section id="doctors" className="py-20 sm:py-24 bg-white">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div>
-            <SectionLabel>Our Doctors</SectionLabel>
-
-            <h2 className="text-3xl font-normal font-serif tracking-[-0.03em] sm:text-4xl lg:text-5xl">
-              Meet your care team.
-            </h2>
-          </div>
-
-          <p className="max-w-[480px] text-[14px] leading-6 text-[#5B6872]">
-            Consultation timings are listed below. Please contact the centre
-            before visiting to confirm availability.
-          </p>
+        {/* Section Header */}
+        <div className="mb-12">
+          <SectionLabel>Our Doctors</SectionLabel>
+          <h2 className="text-3xl font-medium font-[family-name:var(--font-heading)] tracking-[-0.03em] sm:text-4xl lg:text-5xl text-[#061627]">
+            Meet your care team.
+          </h2>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {/* 4 Cards in a row with reduced compact height */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
           {doctors.map((doctor) => (
             <div
               key={doctor.name}
-              className="flex flex-col overflow-hidden rounded-2xl bg-gray-100 transition hover:border-gray-300 hover:shadow-sm"
+              className="group relative flex h-[390px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:border-gray-200 hover:shadow-xl"
             >
-              <div className="relative aspect-square w-full overflow-hidden bg-gray-200">
+              {/* Image container on top: Compact height smoothly shortens on hover */}
+              <div className="relative h-[295px] w-full flex-shrink-0 overflow-hidden bg-[#F3F4F6] transition-all duration-500 ease-out group-hover:h-[135px]">
                 <Image
                   src={doctor.image}
-                  alt={doctor.name}
+                  alt={`${doctor.prefix} ${doctor.name}`}
                   fill
-                  className="object-cover object-top transition duration-300 hover:scale-105"
+                  className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               </div>
 
-              <div className="flex flex-1 flex-col p-4 sm:p-5">
-                <h3 className="text-[17px] font-semibold text-[#061627]">
-                  {doctor.name}
-                </h3>
+              {/* Bottom Container: Compact padding, no excess whitespace */}
+              <div className="flex flex-1 flex-col justify-start p-4 bg-white border-t border-gray-100 overflow-hidden">
+                {/* Doctor Name & Role */}
+                <div className="shrink-0">
+                  <h3 className="text-xl font-semibold font-[family-name:var(--font-heading)] text-[#061627] tracking-tight">
+                    {doctor.prefix} {doctor.name}
+                  </h3>
+                  <p className="mt-0.5 text-sm font-medium text-gray-600 truncate">
+                    {doctor.role}
+                  </p>
+                </div>
 
-                <p className="mt-1 text-[13px] leading-snug text-[#6B747B]">
-                  {doctor.role}
-                </p>
+                {/* Details (Description, Timings, & Book Now) smoothly pushed upward */}
+                <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr]">
+                  <div className="overflow-hidden">
+                    <div className="pt-2 border-t border-gray-100 mt-2 space-y-2">
+                      <p className="text-xs leading-snug text-gray-700 line-clamp-2">
+                        {doctor.description}
+                      </p>
 
-                <div className="mt-3.5 pt-3">
-                  <div className="flex gap-2.5">
-                    <Clock3
-                      size={16}
-                      className="mt-0.5 shrink-0 text-[#CD9E57]"
-                    />
-                    <div>
-                      <p className="text-[13px] font-semibold text-[#061627]">
-                        {doctor.time}
-                      </p>
-                      <p className="mt-0.5 text-[12px] leading-tight text-[#6B747B]">
-                        {doctor.days}
-                      </p>
+                      {/* Timing schedule */}
+                      <div className="rounded-lg bg-gray-50 border border-gray-200/60 p-2 text-xs text-[#061627] space-y-0.5">
+                        <div className="flex items-center gap-1.5 font-semibold text-[#061627]">
+                          <Clock3 size={13} className="text-[#061627] shrink-0" />
+                          <span className="truncate">{doctor.time}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-gray-600">
+                          <Calendar size={13} className="text-gray-500 shrink-0" />
+                          <span className="truncate">{doctor.days}</span>
+                        </div>
+                      </div>
+
+                      {/* High-contrast Book Now button */}
+                      <Link
+                        href="#appointment"
+                        className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#061627] py-2 px-3 text-[11.5px] font-semibold !text-white hover:!text-white transition-all hover:bg-black active:scale-[0.98]"
+                      >
+                        <span className="!text-white">Book Appointment</span>
+                        <ArrowRight size={12} className="text-white" />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -96,21 +122,7 @@ export function Doctors() {
             </div>
           ))}
         </div>
-
-        {/* <div className="mt-5 flex items-start gap-3 rounded-2xl border border-gray-200 bg-gray-100 p-5 text-[13px] text-[#53616B]">
-          <CalendarDays
-            size={18}
-            className="mt-0.5 shrink-0 text-[#CD9E57]"
-          />
-          <p>
-            <strong className="font-semibold text-[#061627]">
-              Thursdays:
-            </strong>{" "}
-            Diagnostics and online consultation.
-          </p>
-        </div> */}
       </div>
     </section>
   );
 }
-
