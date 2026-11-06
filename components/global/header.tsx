@@ -2,14 +2,36 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { Plus, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavigationDrawer } from "@/components/global/navigation-drawer";
 import { HamburgerButton } from "@/components/global/hamburger-button";
 
 const navLinks = [
-  { label: "Stroke & Neuro Rehabilitation", href: "#neuro", hasPlus: true },
-  { label: "Back & Neck Pain", href: "#pain", hasPlus: true },
+  {
+    label: "Stroke & Neuro Rehabilitation",
+    href: "#neuro",
+    items: [
+      { label: "Stroke Recovery Program", href: "#neuro" },
+      { label: "Neurological Assessment", href: "#neuro" },
+      { label: "Robotic Gait Training", href: "#neuro" },
+      { label: "Physiotherapy & Mobility", href: "#neuro" },
+      { label: "Occupational Therapy", href: "#neuro" },
+      { label: "Speech & Swallowing Therapy", href: "#neuro" },
+    ],
+  },
+  {
+    label: "Back & Neck Pain",
+    href: "#pain",
+    items: [
+      { label: "Non-Surgical Spine Care", href: "#pain" },
+      { label: "IDD Spinal Decompression", href: "#pain" },
+      { label: "Interventional Pain Procedures", href: "#pain" },
+      { label: "Class IV Laser Pain Therapy", href: "#pain" },
+      { label: "Prolotherapy & PRP Injections", href: "#pain" },
+      { label: "Cervical & Lumbar Rehab", href: "#pain" },
+    ],
+  },
   { label: "Our Doctors", href: "#doctors" },
   { label: "Treatments", href: "#treatments" },
   { label: "Facilities", href: "#facilities" },
@@ -78,31 +100,72 @@ export function Header() {
             <div className="h-10 w-[130px] sm:w-[144px]" />
           </div>
 
-          {/* Center/Right: Navigation Links (single row) */}
+          {/* Center/Right: Navigation Links with Simple Minimal High-Contrast Dropdowns */}
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7 whitespace-nowrap pl-4">
-            {navLinks.map(({ label, href, hasPlus }) => (
-              <a
-                key={label}
-                href={href}
-                className={`group flex items-center gap-1.5 text-[13.5px] font-medium transition-colors ${isScrolled
-                  ? "text-[#4B5563] hover:text-[#061627]"
-                  : "text-white/85 hover:text-white"
+            {navLinks.map((navItem) => {
+              const hasDropdown = Boolean(navItem.items && navItem.items.length > 0);
+
+              if (hasDropdown) {
+                return (
+                  <div key={navItem.label} className="relative group/menu py-6">
+                    <a
+                      href={navItem.href}
+                      className={`flex items-center gap-1.5 text-[13.5px] font-medium transition-colors cursor-pointer ${
+                        isScrolled
+                          ? "text-[#4B5563] group-hover/menu:text-[#061627]"
+                          : "text-white/85 group-hover/menu:text-white"
+                      }`}
+                    >
+                      <span>{navItem.label}</span>
+                      <Plus
+                        size={13}
+                        strokeWidth={3}
+                        className={`transition-transform duration-200 group-hover/menu:rotate-45 ${
+                          isScrolled ? "text-[#061627]" : "text-white"
+                        }`}
+                      />
+                    </a>
+
+                    {/* Simple, Minimal, Clean White Dropdown Card */}
+                    <div className="absolute left-0 top-[calc(100%-8px)] hidden group-hover/menu:flex flex-col w-[300px] rounded-2xl bg-white text-[#061627] p-3 shadow-2xl border border-gray-100 animate-in fade-in-0 zoom-in-95 duration-150 z-50">
+                      <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 border-b border-gray-100 mb-1">
+                        {navItem.label}
+                      </div>
+
+                      <div className="flex flex-col space-y-0.5">
+                        {navItem.items!.map((subItem) => (
+                          <a
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="group/item flex items-center justify-between rounded-xl px-3 py-2.5 text-[13.5px] font-medium text-[#1F2937] transition-all hover:bg-gray-100 hover:text-[#061627]"
+                          >
+                            <span className="truncate pr-2">{subItem.label}</span>
+                            <ArrowUpRight
+                              size={15}
+                              className="shrink-0 text-gray-400 transition-transform duration-200 group-hover/item:text-[#CD9E57] group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5"
+                            />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <a
+                  key={navItem.label}
+                  href={navItem.href}
+                  className={`flex items-center gap-1.5 text-[13.5px] font-medium transition-colors ${
+                    isScrolled
+                      ? "text-[#4B5563] hover:text-[#061627]"
+                      : "text-white/85 hover:text-white"
                   }`}
-              >
-                <span>{label}</span>
-                {hasPlus && (
-                  <Plus
-                    size={14}
-                    strokeWidth={3}
-                    className={
-                      isScrolled
-                        ? "text-gray-800 group-hover:text-[#061627]"
-                        : "text-white"
-                    }
-                  />
-                )}
-              </a>
-            ))}
+                >
+                  <span>{navItem.label}</span>
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right: Book Appointment Button + Animated Hamburger Button */}

@@ -9,10 +9,10 @@ import {
   Stethoscope,
   Activity,
   CalendarDays,
-  CheckCircle2,
 } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const doctorsList = [
   { id: "any", name: "Any Available Specialist", timing: "08:00 – 17:00 hrs" },
@@ -79,7 +79,6 @@ export function AppointmentBooking() {
   const [currentMonth, setCurrentMonth] = useState(10);
   const [currentYear, setCurrentYear] = useState(2026);
   const [selectedDay, setSelectedDay] = useState<number | null>(15);
-  const [isBooked, setIsBooked] = useState(false);
 
   useEffect(() => {
     const today = new Date();
@@ -125,35 +124,19 @@ export function AppointmentBooking() {
     <section id="appointment" className="py-12 sm:py-16 bg-white border-b border-gray-200">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
         {/* Section Header at Top Center */}
-        <div className="mx-auto mb-8 sm:mb-10 max-w-[760px] text-center flex flex-col items-center">
+        <ScrollReveal direction="up" distance={20} duration={600} className="mx-auto mb-8 sm:mb-10 max-w-[760px] text-center flex flex-col items-center">
           <h2 className="mt-2 text-2xl font-medium font-[family-name:var(--font-heading)] sm:text-3xl lg:text-4xl tracking-[-0.03em] text-[#061627] leading-tight">
             Select your doctor, service & date.
           </h2>
-        </div>
+        </ScrollReveal>
 
-        {isBooked ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center border-t border-gray-200">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-              <CheckCircle2 size={36} />
-            </div>
-            <h3 className="mt-5 text-2xl font-medium text-[#061627]">
-              Appointment Slot Reserved
-            </h3>
-            <button
-              type="button"
-              onClick={() => setIsBooked(false)}
-              className="mt-6 text-xs font-semibold uppercase tracking-wider text-[#CD9E57] hover:underline cursor-pointer"
-            >
-              Book another appointment
-            </button>
-          </div>
-        ) : (
-          <div className="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16 items-start">
+        <div className="mx-auto max-w-[1340px] rounded-[28px] bg-[#061627] p-6 sm:p-8 lg:p-10 shadow-2xl text-white">
+          <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:gap-14 items-start">
             {/* Left Column: Doctor Dropdown + 2 Primary Service Image Boxes + Subservice Dropdown */}
             <div className="space-y-7">
               {/* 1. Doctor Selector Dropdown */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#061627] mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
                   1. Select Doctor / Consultant
                 </label>
                 <div className="relative">
@@ -161,10 +144,10 @@ export function AppointmentBooking() {
                   <select
                     value={selectedDoctor}
                     onChange={(e) => setSelectedDoctor(e.target.value)}
-                    className="w-full appearance-none rounded-xl border border-gray-300 bg-white py-3.5 pl-11 pr-10 text-[14.5px] font-semibold text-[#061627] focus:border-[#061627] focus:outline-none transition-colors cursor-pointer shadow-xs"
+                    className="w-full appearance-none rounded-xl border border-white/15 bg-[#10243C] py-3.5 pl-11 pr-10 text-[14.5px] font-semibold text-white focus:border-[#CD9E57] focus:outline-none transition-colors cursor-pointer shadow-xs"
                   >
                     {doctorsList.map((doc) => (
-                      <option key={doc.id} value={doc.id}>
+                      <option key={doc.id} value={doc.id} className="bg-[#061627] text-white">
                         {doc.name} ({doc.timing})
                       </option>
                     ))}
@@ -175,7 +158,7 @@ export function AppointmentBooking() {
 
               {/* 2. Primary Service Selector: 2 boxes with thumbnail on top-left */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#061627] mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
                   2. Choose Primary Service
                 </label>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -187,13 +170,13 @@ export function AppointmentBooking() {
                         key={service.id}
                         onClick={() => handleServiceChange(service.id as "neuro" | "pain")}
                         className={`group relative flex flex-col justify-between rounded-2xl p-4 cursor-pointer border-2 transition-all duration-200 select-none ${isSelected
-                          ? "border-[#061627] bg-gray-50/90 shadow-sm"
-                          : "border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50"
+                          ? "border-[#CD9E57] bg-[#10243C] shadow-lg"
+                          : "border-white/10 bg-[#0E1F35] hover:border-white/20 hover:bg-[#10243C]"
                           }`}
                       >
                         {/* Top row: small rounded corner image box on top-left & check indicator on top-right */}
                         <div className="flex items-center justify-between">
-                          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-gray-100 border border-gray-200 shadow-xs">
+                          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-black/40 border border-white/10 shadow-xs">
                             <Image
                               src={service.image}
                               alt={service.title}
@@ -204,19 +187,19 @@ export function AppointmentBooking() {
 
                           <div
                             className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${isSelected
-                              ? "border-[#061627] bg-[#061627]"
-                              : "border-gray-300 bg-white"
+                              ? "border-[#CD9E57] bg-[#CD9E57]"
+                              : "border-white/30 bg-transparent"
                               }`}
                           >
                             {isSelected && (
-                              <div className="h-2 w-2 rounded-full bg-white" />
+                              <div className="h-2 w-2 rounded-full bg-[#061627]" />
                             )}
                           </div>
                         </div>
 
                         {/* Title at bottom */}
                         <div className="mt-4">
-                          <span className="text-[15px] font-semibold text-[#061627] leading-snug">
+                          <span className="text-[15px] font-semibold text-white leading-snug">
                             {service.title}
                           </span>
                         </div>
@@ -228,7 +211,7 @@ export function AppointmentBooking() {
 
               {/* 3. Subservice Selector Dropdown */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#061627] mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
                   3. Select Specific Treatment / Sub-Service
                 </label>
                 <div className="relative">
@@ -236,10 +219,10 @@ export function AppointmentBooking() {
                   <select
                     value={selectedSubService}
                     onChange={(e) => setSelectedSubService(e.target.value)}
-                    className="w-full appearance-none rounded-xl border border-gray-300 bg-white py-3.5 pl-11 pr-10 text-[14.5px] font-semibold text-[#061627] focus:border-[#061627] focus:outline-none transition-colors cursor-pointer shadow-xs"
+                    className="w-full appearance-none rounded-xl border border-white/15 bg-[#10243C] py-3.5 pl-11 pr-10 text-[14.5px] font-semibold text-white focus:border-[#CD9E57] focus:outline-none transition-colors cursor-pointer shadow-xs"
                   >
                     {activeService.subservices.map((sub) => (
-                      <option key={sub} value={sub}>
+                      <option key={sub} value={sub} className="bg-[#061627] text-white">
                         {sub}
                       </option>
                     ))}
@@ -250,21 +233,11 @@ export function AppointmentBooking() {
             </div>
 
             {/* Right Column: Simple Minimal Calendar & Book Appointment */}
-            <div className="flex flex-col justify-between rounded-2xl bg-gray-50 border border-gray-200 p-6 sm:p-7">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#061627]">
-                    4. Select Date
-                  </p>
-                  <span className="text-xs text-[#061627] font-medium flex items-center gap-1.5">
-                    <CalendarDays size={13} className="text-[#CD9E57]" />
-                    <span>Mon – Sat</span>
-                  </span>
-                </div>
-
+            <div className="flex flex-col gap-4">
+              <div className="rounded-2xl bg-[#10243C] border border-white/10 p-6 sm:p-7 shadow-lg">
                 {/* Minimal Calendar Controls */}
-                <div className="flex items-center justify-between py-2 border-b border-gray-200">
-                  <span className="text-[15px] font-bold text-[#061627]">
+                <div className="flex items-center justify-between py-2 border-b border-white/10">
+                  <span className="text-[15px] font-bold text-white">
                     {monthNames[currentMonth]} {currentYear}
                   </span>
 
@@ -273,7 +246,7 @@ export function AppointmentBooking() {
                       type="button"
                       onClick={prevMonth}
                       aria-label="Previous month"
-                      className="flex h-7 w-7 items-center justify-center rounded-md hover:bg-gray-200 text-[#061627] transition-colors cursor-pointer"
+                      className="flex h-7 w-7 items-center justify-center rounded-md hover:bg-white/10 text-white transition-colors cursor-pointer"
                     >
                       <ChevronLeft size={16} />
                     </button>
@@ -281,7 +254,7 @@ export function AppointmentBooking() {
                       type="button"
                       onClick={nextMonth}
                       aria-label="Next month"
-                      className="flex h-7 w-7 items-center justify-center rounded-md hover:bg-gray-200 text-[#061627] transition-colors cursor-pointer"
+                      className="flex h-7 w-7 items-center justify-center rounded-md hover:bg-white/10 text-white transition-colors cursor-pointer"
                     >
                       <ChevronRight size={16} />
                     </button>
@@ -318,10 +291,10 @@ export function AppointmentBooking() {
                         disabled={isSunday}
                         onClick={() => setSelectedDay(dayNum)}
                         className={`flex h-8 w-full items-center justify-center rounded-md text-xs font-semibold transition-all ${isSunday
-                          ? "text-gray-300 cursor-not-allowed"
+                          ? "text-gray-600 cursor-not-allowed"
                           : isSelected
-                            ? "bg-[#061627] text-white"
-                            : "text-[#061627] hover:bg-white cursor-pointer"
+                            ? "bg-[#CD9E57] text-[#061627] font-bold shadow-sm"
+                            : "text-white hover:bg-white/10 cursor-pointer"
                           }`}
                       >
                         {dayNum}
@@ -329,31 +302,29 @@ export function AppointmentBooking() {
                     );
                   })}
                 </div>
-              </div>
 
-              {/* Bottom Book Button */}
-              <div className="mt-8 border-t border-gray-200 pt-5">
-                <div className="mb-3 text-xs text-[#52606B]">
-                  Date:{" "}
-                  <strong className="text-[#061627]">
+                {/* Selected Date Summary inside Calendar */}
+                <div className="mt-4 border-t border-white/10 pt-3 text-center text-xs text-gray-300">
+                  Selected Date:{" "}
+                  <strong className="text-white font-semibold">
                     {selectedDay} {monthNames[currentMonth]} {currentYear}
                   </strong>
                 </div>
-
-                <Button
-                  type="button"
-                  variant="primary"
-                  size="normal"
-                  onClick={() => setIsBooked(true)}
-                  disabled={!selectedDay}
-                  className="w-full justify-center h-12 text-[14.5px]"
-                >
-                  Book Appointment
-                </Button>
               </div>
+
+              {/* Bottom Book Button outside calendar */}
+              <Button
+                type="button"
+                variant="primary"
+                size="normal"
+                disabled={!selectedDay}
+                className="w-full justify-center h-12 text-[14.5px]"
+              >
+                Book Appointment
+              </Button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

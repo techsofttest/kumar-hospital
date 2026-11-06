@@ -1,6 +1,7 @@
 import { Stethoscope, Activity, Zap, ShieldCheck } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const reasons = [
   {
@@ -30,7 +31,7 @@ export function WhyChoose() {
     <section className="relative overflow-hidden bg-[#F4F5F7] py-14 sm:py-16 lg:py-20">
       <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
         <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-          <div>
+          <ScrollReveal direction="up" distance={20} duration={600}>
             <SectionLabel>Why Choose Us</SectionLabel>
 
             <h2 className="max-w-[500px] text-3xl font-medium font-[family-name:var(--font-heading)] leading-tight tracking-[-0.03em] sm:text-4xl text-[#061627]">
@@ -51,14 +52,20 @@ export function WhyChoose() {
             >
               Talk to our team
             </Button>
-          </div>
+          </ScrollReveal>
 
           <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-            {reasons.map((item) => {
+            {reasons.map((item, index) => {
               const Icon = item.icon;
 
               return (
-                <div key={item.title} className="pt-2">
+                <ScrollReveal
+                  key={item.title}
+                  direction="up"
+                  distance={25}
+                  delay={index * 100}
+                  className="pt-2"
+                >
                   <Icon
                     size={40}
                     strokeWidth={1.6}
@@ -70,7 +77,7 @@ export function WhyChoose() {
                   <p className="mt-1.5 text-lg leading-6 text-black/90">
                     {item.text}
                   </p>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>

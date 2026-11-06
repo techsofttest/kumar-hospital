@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const faqs = [
   {
@@ -34,7 +35,7 @@ export function Faq() {
   return (
     <section id="faq" className="py-14 sm:py-16 lg:py-20 border-b border-gray-200">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 sm:px-12 lg:px-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-        <div>
+        <ScrollReveal direction="up" distance={20} duration={600}>
           <SectionLabel>Frequently Asked Questions</SectionLabel>
 
           <h2 className="text-3xl font-medium font-[family-name:var(--font-heading)] tracking-[-0.03em] sm:text-4xl">
@@ -54,18 +55,20 @@ export function Faq() {
               className="px-0 hover:bg-transparent hover:underline !gap-2"
             >
               Ask our team
-              
             </Button>
           </div>
-        </div>
+        </ScrollReveal>
 
-        <div>
+        <div className="divide-y divide-[#DCD9D2]">
           {faqs.map((faq, index) => {
             const isOpen = openFaq === index;
 
             return (
-              <div
+              <ScrollReveal
                 key={faq.question}
+                direction="up"
+                distance={18}
+                delay={index * 70}
                 className="border-b border-[#DCD9D2]"
               >
                 <button
@@ -101,7 +104,7 @@ export function Faq() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

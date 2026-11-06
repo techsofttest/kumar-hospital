@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock3, Calendar, ArrowRight } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const doctors = [
   {
@@ -51,18 +52,22 @@ export function Doctors() {
     <section id="doctors" className="py-20 sm:py-24 bg-white">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
         {/* Section Header */}
-        <div className="mb-12">
+        <ScrollReveal direction="up" distance={20} duration={600} className="mb-12">
           <SectionLabel>Our Doctors</SectionLabel>
           <h2 className="text-3xl font-medium font-[family-name:var(--font-heading)] tracking-[-0.03em] sm:text-4xl lg:text-5xl text-[#061627]">
             Meet your care team.
           </h2>
-        </div>
+        </ScrollReveal>
 
         {/* 4 Cards in a row with reduced compact height */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
-          {doctors.map((doctor) => (
-            <div
+          {doctors.map((doctor, idx) => (
+            <ScrollReveal
               key={doctor.name}
+              direction="up"
+              distance={25}
+              delay={idx * 90}
+              duration={650}
               className="group relative flex h-[390px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:border-gray-200 hover:shadow-xl"
             >
               {/* Image container on top: Compact height smoothly shortens on hover */}
@@ -119,7 +124,7 @@ export function Doctors() {
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

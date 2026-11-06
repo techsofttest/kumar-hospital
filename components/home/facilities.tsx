@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const facilities = [
   {
@@ -57,7 +58,7 @@ export function Facilities() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
         <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:gap-14 items-start">
           {/* Left Column: Heading, description & Carousel Controls */}
-          <div>
+          <ScrollReveal direction="up" distance={20} duration={600}>
             <SectionLabel light>Advanced Facilities</SectionLabel>
 
             <h2 className="text-3xl font-medium font-[family-name:var(--font-heading)] leading-tight tracking-[-0.03em] sm:text-4xl text-white">
@@ -91,10 +92,10 @@ export function Facilities() {
                 {String(currentIndex + 1).padStart(2, "0")} / {String(facilities.length).padStart(2, "0")}
               </span>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Carousel Track with Image Cards */}
-          <div className="relative w-full overflow-hidden">
+          <ScrollReveal direction="left" distance={30} duration={700} delay={150} className="relative w-full overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-out"
               style={{
@@ -105,7 +106,7 @@ export function Facilities() {
               {facilities.map((facility) => (
                 <div
                   key={facility.title}
-                  className="group relative flex-shrink-0 w-full sm:w-[calc(50%-12px)] flex flex-col overflow-hidden rounded-[22px] bg-[#10243C] shadow-[0_12px_36px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-[#152D4A] hover:shadow-[0_16px_44px_rgba(0,0,0,0.5)]"
+                  className="group relative flex-shrink-0 w-full sm:w-[calc(50%-12px)] flex flex-col overflow-hidden rounded-[22px] bg-[#10243C] transition-all duration-300 hover:bg-[#152D4A]"
                 >
                   {/* Image container on top with controlled aspect ratio */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/40">
@@ -129,7 +130,7 @@ export function Facilities() {
                 </div>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

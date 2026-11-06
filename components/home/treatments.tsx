@@ -8,6 +8,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { SectionLabel } from "@/components/ui/section-label";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const treatments = [
   {
@@ -52,21 +53,25 @@ export function Treatments() {
   return (
     <section id="treatments" className="bg-[#E9ECF0] py-14 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24">
-        <div className="max-w-[720px]">
+        <ScrollReveal direction="up" distance={20} duration={600} className="max-w-[720px]">
           <SectionLabel>Treatments & Services</SectionLabel>
 
           <h2 className="text-3xl font-medium font-[family-name:var(--font-heading)] leading-tight tracking-[-0.03em] sm:text-4xl text-[#061627]">
             The right combination of care for every recovery journey.
           </h2>
-        </div>
+        </ScrollReveal>
 
         <div className="mt-8 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
-          {treatments.map((treatment) => {
+          {treatments.map((treatment, idx) => {
             const Icon = treatment.icon;
 
             return (
-              <div
+              <ScrollReveal
                 key={treatment.title}
+                direction="up"
+                distance={24}
+                delay={idx * 75}
+                duration={600}
                 className="group flex flex-col justify-between rounded-xl border border-gray-200/90 bg-white p-5 shadow-[0_2px_6px_rgba(0,0,0,0.03)] transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
               >
                 <div>
@@ -86,7 +91,7 @@ export function Treatments() {
                   </div>
                   <Icon size={36} strokeWidth={1.6} className="text-[#B88942]" />
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

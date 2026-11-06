@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { SectionLabel } from "@/components/ui/section-label";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export function About() {
   return (
@@ -20,12 +21,14 @@ export function About() {
 
       {/* Content aligned to bottom */}
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-14 pt-28 sm:px-12 sm:pb-16 sm:pt-36 lg:px-20 lg:pb-20 xl:px-24">
-        <SectionLabel light>About Kumar Hospital</SectionLabel>
+        <ScrollReveal direction="up" distance={15} duration={500}>
+          <SectionLabel light>About Kumar Hospital</SectionLabel>
+        </ScrollReveal>
 
         {/* 2-column layout: Header on left, Description on right */}
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:items-end">
           {/* Left: Heading + Button */}
-          <div>
+          <ScrollReveal direction="up" distance={24} duration={650}>
             <h2 className="max-w-[580px] text-3xl font-medium font-[family-name:var(--font-heading)] leading-tight tracking-[-0.03em] sm:text-4xl lg:text-5xl text-white">
               Specialist rehabilitation with a human approach.
             </h2>
@@ -35,10 +38,10 @@ export function About() {
                 Know More
               </Button>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right: Description + Feature tags */}
-          <div className="flex flex-col justify-end">
+          <ScrollReveal direction="up" distance={24} duration={650} delay={150} className="flex flex-col justify-end">
             <p className="text-[16px] leading-7 text-gray-200">
               Kumar Hospital brings together specialist rehabilitation,
               neurological care and advanced pain-management services under
@@ -56,7 +59,7 @@ export function About() {
                 Advanced technology
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
