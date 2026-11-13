@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavigationDrawer } from "@/components/global/navigation-drawer";
@@ -10,36 +12,45 @@ import { HamburgerButton } from "@/components/global/hamburger-button";
 const navLinks = [
   {
     label: "Stroke & Neuro Rehabilitation",
-    href: "#neuro",
+    href: "/services",
     items: [
-      { label: "Stroke Recovery Program", href: "#neuro" },
-      { label: "Neurological Assessment", href: "#neuro" },
-      { label: "Robotic Gait Training", href: "#neuro" },
-      { label: "Physiotherapy & Mobility", href: "#neuro" },
-      { label: "Occupational Therapy", href: "#neuro" },
-      { label: "Speech & Swallowing Therapy", href: "#neuro" },
+      { label: "Stroke Recovery Program", href: "/services/stroke-recovery-program" },
+      { label: "Neurological Assessment", href: "/services/neurological-assessment" },
+      { label: "Robotic Gait Training", href: "/services/robotic-gait-training" },
+      { label: "Physiotherapy & Mobility", href: "/services/physiotherapy-mobility" },
+      { label: "Occupational Therapy", href: "/services/occupational-therapy" },
+      { label: "Speech & Swallowing Therapy", href: "/services/speech-swallowing-therapy" },
     ],
   },
   {
     label: "Back & Neck Pain",
-    href: "#pain",
+    href: "/services",
     items: [
-      { label: "Non-Surgical Spine Care", href: "#pain" },
-      { label: "IDD Spinal Decompression", href: "#pain" },
-      { label: "Interventional Pain Procedures", href: "#pain" },
-      { label: "Class IV Laser Pain Therapy", href: "#pain" },
-      { label: "Prolotherapy & PRP Injections", href: "#pain" },
-      { label: "Cervical & Lumbar Rehab", href: "#pain" },
+      { label: "Non-Surgical Spine Care", href: "/services/non-surgical-spine-care" },
+      { label: "IDD Spinal Decompression", href: "/services/idd-spinal-decompression" },
+      { label: "Interventional Pain Procedures", href: "/services/interventional-pain-procedures" },
+      { label: "Class IV Laser Pain Therapy", href: "/services/laser-pain-therapy" },
+      { label: "Prolotherapy & PRP Injections", href: "/services/prp-prolotherapy" },
+      { label: "Cervical & Lumbar Rehab", href: "/services/cervical-lumbar-rehabilitation" },
     ],
   },
-  { label: "Our Doctors", href: "#doctors" },
-  { label: "Treatments", href: "#treatments" },
-  { label: "Facilities", href: "#facilities" },
+  { label: "Our Doctors", href: "/doctors" },
+  { label: "Services", href: "/services" },
+  { label: "Facilities", href: "/facilities" },
 ];
 
 export function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // Check if current page is a service or treatment detailed page
+  const isDetailPage =
+    (pathname?.startsWith("/services/") && pathname.split("/").filter(Boolean).length === 2) ||
+    (pathname?.startsWith("/treatments/") && pathname.split("/").filter(Boolean).length === 2);
+
+  // Header should render with solid white background if scrolled OR on detail pages
+  const isWhiteBg = isScrolled || isDetailPage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +65,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isScrolled
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${isWhiteBg
           ? "bg-white text-[#061627] backdrop-blur-md border-b border-gray-200/80 shadow-xs"
           : "bg-gradient-to-b from-black/80 via-black/40 to-transparent text-white"
           }`}
@@ -62,9 +73,9 @@ export function Header() {
         <div className="relative mx-auto flex h-[74px] max-w-[1440px] items-center justify-between px-6 sm:px-12 lg:px-20 xl:px-24">
           {/* Left: Overlapping Vertical Logo with White Banner Shape */}
           <div className="relative z-30 shrink-0">
-            <a
-              href="#"
-              className="group absolute -top-4 left-0 flex h-[142px] w-[130px] sm:w-[144px] flex-col items-center justify-start transition-transform hover:scale-[1.02]"
+            <Link
+              href="/"
+              className="group absolute -top-9 left-0 flex h-[142px] w-[130px] sm:w-[144px] flex-col items-center justify-start transition-transform hover:scale-[1.02]"
             >
               {/* White background shape with chevron/ribbon bottom */}
               <div className="absolute inset-0 bg-white [clip-path:polygon(0_0,100%_0,100%_calc(100%-14px),50%_100%,0_calc(100%-14px))]" />
@@ -95,57 +106,53 @@ export function Header() {
                   />
                 </div>
               </div>
-            </a>
+            </Link>
             {/* Spacer to reserve room for logo width */}
-            <div className="h-10 w-[130px] sm:w-[144px]" />
+            <div className="w-[130px] sm:w-[144px]" />
           </div>
 
-          {/* Center/Right: Navigation Links with Simple Minimal High-Contrast Dropdowns */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 whitespace-nowrap pl-4">
+          {/* Center: Desktop Navigation with Dropdowns */}
+          <nav className="hidden lg:flex items-center gap-7">
             {navLinks.map((navItem) => {
-              const hasDropdown = Boolean(navItem.items && navItem.items.length > 0);
-
-              if (hasDropdown) {
+              if (navItem.items) {
                 return (
-                  <div key={navItem.label} className="relative group/menu py-6">
-                    <a
+                  <div key={navItem.label} className="relative group py-2">
+                    <Link
                       href={navItem.href}
-                      className={`flex items-center gap-1.5 text-[13.5px] font-medium transition-colors cursor-pointer ${
-                        isScrolled
-                          ? "text-[#4B5563] group-hover/menu:text-[#061627]"
-                          : "text-white/85 group-hover/menu:text-white"
-                      }`}
+                      className={`flex items-center gap-1.5 text-[13.5px] font-medium transition-colors ${isWhiteBg
+                        ? "text-[#4B5563] group-hover:text-[#061627]"
+                        : "text-white/85 group-hover:text-white"
+                        }`}
                     >
                       <span>{navItem.label}</span>
                       <Plus
-                        size={13}
+                        size={14}
                         strokeWidth={3}
-                        className={`transition-transform duration-200 group-hover/menu:rotate-45 ${
-                          isScrolled ? "text-[#061627]" : "text-white"
-                        }`}
+                        className={`transition-transform duration-300 group-hover:rotate-45 ${isWhiteBg ? "text-white" : "text-white"
+                          }`}
                       />
-                    </a>
+                    </Link>
 
-                    {/* Simple, Minimal, Clean White Dropdown Card */}
-                    <div className="absolute left-0 top-[calc(100%-8px)] hidden group-hover/menu:flex flex-col w-[300px] rounded-2xl bg-white text-[#061627] p-3 shadow-2xl border border-gray-100 animate-in fade-in-0 zoom-in-95 duration-150 z-50">
-                      <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 border-b border-gray-100 mb-1">
-                        {navItem.label}
-                      </div>
+                    {/* Mega Dropdown Menu */}
+                    <div className="absolute top-full left-0 hidden group-hover:block pt-3 z-50 animate-in fade-in-0 duration-200">
+                      <div className="w-[300px] overflow-hidden rounded-[20px] border border-gray-100 bg-white p-3 shadow-xl text-[#061627]">
 
-                      <div className="flex flex-col space-y-0.5">
-                        {navItem.items!.map((subItem) => (
-                          <a
-                            key={subItem.label}
-                            href={subItem.href}
-                            className="group/item flex items-center justify-between rounded-xl px-3 py-2.5 text-[13.5px] font-medium text-[#1F2937] transition-all hover:bg-gray-100 hover:text-[#061627]"
-                          >
-                            <span className="truncate pr-2">{subItem.label}</span>
-                            <ArrowUpRight
-                              size={15}
-                              className="shrink-0 text-gray-400 transition-transform duration-200 group-hover/item:text-[#CD9E57] group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5"
-                            />
-                          </a>
-                        ))}
+                        <ul className="space-y-1">
+                          {navItem.items.map((subItem) => (
+                            <li key={subItem.label}>
+                              <Link
+                                href={subItem.href}
+                                className="group/item flex items-center justify-between rounded-xl px-3 py-2.5 text-[13px] font-medium !text-[#061627] hover:bg-[#F4F5F7] hover:!text-[#CD9E57] transition-all"
+                              >
+                                <span className="!text-[#061627] group-hover/item:!text-[#CD9E57]">{subItem.label}</span>
+                                <ArrowUpRight
+                                  size={13}
+                                  className="text-gray-400 opacity-0 transition-all group-hover/item:opacity-100 group-hover/item:text-[#CD9E57]"
+                                />
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -153,45 +160,36 @@ export function Header() {
               }
 
               return (
-                <a
+                <Link
                   key={navItem.label}
                   href={navItem.href}
-                  className={`flex items-center gap-1.5 text-[13.5px] font-medium transition-colors ${
-                    isScrolled
-                      ? "text-[#4B5563] hover:text-[#061627]"
-                      : "text-white/85 hover:text-white"
-                  }`}
+                  className={`flex items-center gap-1.5 text-[13.5px] font-medium transition-colors ${isWhiteBg
+                    ? "text-[#4B5563] hover:text-[#061627]"
+                    : "text-white/85 hover:text-white"
+                    }`}
                 >
                   <span>{navItem.label}</span>
-                </a>
+                </Link>
               );
             })}
           </nav>
 
           {/* Right: Book Appointment Button + Animated Hamburger Button */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <Button
-              href="#appointment"
-              variant={isScrolled ? "primary" : "white"}
+              href="/book-appointment"
+              variant={isWhiteBg ? "primary" : "white"}
               size="small"
-              className="hidden sm:inline-flex transition-all duration-300"
+              className="transition-all duration-300"
             >
-              Book an Appointment
-            </Button>
-
-            <Button
-              href="#appointment"
-              variant={isScrolled ? "primary" : "white"}
-              size="small"
-              className="sm:hidden transition-all duration-300"
-            >
-              Book
+              <span className="hidden sm:inline">Book an Appointment</span>
+              <span className="sm:hidden">Book</span>
             </Button>
 
             {/* Animated Hamburger Button without box container */}
             <HamburgerButton
               isOpen={isDrawerOpen}
-              isScrolled={isScrolled}
+              isScrolled={isWhiteBg}
               onClick={() => setIsDrawerOpen((prev) => !prev)}
             />
           </div>

@@ -1,20 +1,21 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { X, Phone, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const drawerMenuLinks = [
-  { label: "Home", href: "#" },
-  { label: "About Us", href: "#about" },
-  { label: "Our Doctors", href: "#doctors" },
-  { label: "Treatments", href: "#treatments" },
-  { label: "Services", href: "#services" },
-  { label: "Facilities", href: "#facilities" },
-  { label: "Patient Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Our Doctors", href: "/doctors" },
+  { label: "Treatments", href: "/treatments" },
+  { label: "Facilities", href: "/facilities" },
+  { label: "Patient Testimonials", href: "/testimonials" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 interface NavigationDrawerProps {
@@ -71,7 +72,7 @@ export function NavigationDrawer({ isOpen, onClose }: NavigationDrawerProps) {
         <div className="flex-1 overflow-y-auto px-6 py-6 scrollbar-none">
           <nav className="flex flex-col space-y-1">
             {drawerMenuLinks.map(({ label, href }) => (
-              <a
+              <Link
                 key={label}
                 href={href}
                 onClick={onClose}
@@ -82,7 +83,7 @@ export function NavigationDrawer({ isOpen, onClose }: NavigationDrawerProps) {
                   size={18}
                   className="text-gray-400 transition-transform duration-200 group-hover:text-[#CD9E57] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -90,7 +91,7 @@ export function NavigationDrawer({ isOpen, onClose }: NavigationDrawerProps) {
         {/* Drawer Footer CTA */}
         <div className="border-t border-gray-100 p-6 bg-gray-50">
           <Button
-            href="#appointment"
+            href="/book-appointment"
             variant="primary"
             size="normal"
             className="w-full justify-center"

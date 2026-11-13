@@ -1,11 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   MapPin,
   Phone,
   Clock3,
 } from "lucide-react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+  FaWhatsapp,
+} from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 
 const neuroServices = [
@@ -29,14 +37,14 @@ const painServices = [
 ];
 
 const quickLinks = [
-  { label: "About Us", href: "#about" },
-  { label: "Our Doctors", href: "#doctors" },
-  { label: "Treatments", href: "#treatments" },
-  { label: "Services", href: "#services" },
-  { label: "Facilities", href: "#facilities" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Appointment", href: "#appointment" },
+  { label: "About Us", href: "/about" },
+  { label: "Our Doctors", href: "/doctors" },
+  { label: "Treatments", href: "/treatments" },
+  { label: "Facilities", href: "/facilities" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export function Footer() {
@@ -128,6 +136,64 @@ export function Footer() {
             <p className="text-[13px] leading-relaxed text-gray-400">
               Dedicated to compassionate, multi-disciplinary restorative care and modern technology.
             </p>
+
+            {/* Social Media Links */}
+            <div className="pt-2">
+              <span className="block text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-2.5">
+                Connect With Us
+              </span>
+              <div className="flex items-center gap-2.5">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Kumar Hospital on Facebook"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#1877F2] hover:text-white transition-colors"
+                >
+                  <FaFacebookF size={15} />
+                </a>
+
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Kumar Hospital on Instagram"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#E4405F] hover:text-white transition-colors"
+                >
+                  <FaInstagram size={15} />
+                </a>
+
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Kumar Hospital on LinkedIn"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#0A66C2] hover:text-white transition-colors"
+                >
+                  <FaLinkedinIn size={15} />
+                </a>
+
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Visit Kumar Hospital on YouTube"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#FF0000] hover:text-white transition-colors"
+                >
+                  <FaYoutube size={15} />
+                </a>
+
+                <a
+                  href="https://wa.me/919048178888"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat with Kumar Hospital on WhatsApp"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#25D366] hover:text-white transition-colors"
+                >
+                  <FaWhatsapp size={16} />
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Col 2: Stroke & Neuro Rehab Sub-services */}
@@ -218,13 +284,13 @@ export function Footer() {
             Quick Links:
           </span>
           {quickLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="hover:text-white !underline [text-decoration:underline] underline-offset-4 decoration-1 decoration-white/25 hover:decoration-white transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

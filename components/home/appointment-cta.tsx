@@ -15,7 +15,7 @@ export function AppointmentCta() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
       </div>
 
       {/* Content pinned to bottom */}
@@ -42,7 +42,7 @@ export function AppointmentCta() {
 
             <div className="mt-7">
               <Button
-                href="#appointment"
+                href="/book-appointment"
                 variant="secondary"
                 size="normal"
                 className="h-12 px-7 text-[15px]"
