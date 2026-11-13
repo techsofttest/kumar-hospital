@@ -130,78 +130,64 @@ export function TreatmentsNav() {
 
 export function TreatmentsList() {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white">
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-12 lg:px-20 xl:px-24 space-y-16 lg:space-y-24">
-        {detailedTreatments.map((item, idx) => {
-          const Icon = item.icon;
-          const isReversed = idx % 2 === 1;
-
-          return (
+    <section className="py-10 sm:py-16 md:py-20 bg-white">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-8 md:px-12 lg:px-20 xl:px-24">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 lg:gap-3">
+          {detailedTreatments.map((item) => (
             <div
               key={item.id}
               id={item.id}
-              className={`grid gap-10 lg:grid-cols-2 lg:gap-16 items-center ${isReversed ? "lg:grid-flow-dense" : ""
-                }`}
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-[#F4F5F7] transition-all hover:border-gray-300 hover:shadow-md"
             >
-              {/* Image */}
-              <ScrollReveal
-                direction={isReversed ? "right" : "left"}
-                distance={30}
-                duration={650}
-                className={isReversed ? "lg:col-start-2" : ""}
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[24px] bg-gray-100 border border-gray-200/90 shadow-xs">
+              <div>
+                {/* Image */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-200">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   />
-                </div>
-              </ScrollReveal>
-
-              {/* Content */}
-              <ScrollReveal
-                direction="up"
-                distance={20}
-                duration={600}
-                className={isReversed ? "lg:col-start-1" : ""}
-              >
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#CD9E57]">
-                  <Icon size={16} />
-                  <span>{item.category}</span>
+                  <div className="absolute top-2 left-2 sm:top-3.5 sm:left-3.5 rounded-full bg-[#061627]/85 px-2 sm:px-3 py-0.5 sm:py-1 text-[9px] sm:text-[11px] font-semibold text-white backdrop-blur-xs max-w-[calc(100%-16px)] truncate">
+                    {item.category}
+                  </div>
                 </div>
 
-                <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-medium font-[family-name:var(--font-heading)] text-[#061627] tracking-[-0.03em] leading-tight">
-                  {item.title}
-                </h2>
+                {/* Content */}
+                <div className="p-3 sm:p-5 md:p-6">
+                  <h3 className="text-sm sm:text-lg md:text-xl font-semibold font-[family-name:var(--font-heading)] text-[#061627] leading-snug group-hover:text-[#CD9E57] transition-colors line-clamp-2">
+                    {item.title}
+                  </h3>
 
-                <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-[#52606B]">
-                  {item.description}
-                </p>
-
-                <div className="mt-6 space-y-2.5">
-                  {item.features.map((feat) => (
-                    <div key={feat} className="flex items-start gap-3 text-sm text-[#061627]">
-                      <CheckCircle2 size={16} className="text-[#CD9E57] mt-0.5 shrink-0" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+                  {/* Description */}
+                  <p className="mt-1.5 sm:mt-2.5 md:mt-3 text-[11px] sm:text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-2 sm:line-clamp-3">
+                    {item.description}
+                  </p>
                 </div>
+              </div>
 
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <Button href="/book-appointment" variant="primary" size="normal">
-                    Consult a Specialist
-                  </Button>
+              {/* Buttons: Contact Us & View Details */}
+              <div className="p-3 pt-0 sm:p-5 sm:pt-0 md:p-6 md:pt-0">
+                <div className="grid grid-cols-2 gap-1.5 sm:gap-2.5 md:gap-3 pt-1 sm:pt-2">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center rounded-lg sm:rounded-xl bg-[#CD9E57] px-1 sm:px-2.5 md:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs md:text-sm font-semibold text-[#061627] hover:bg-[#B88942] active:scale-[0.98] transition-all shadow-xs text-center whitespace-nowrap"
+                  >
+                    Contact Us
+                  </Link>
 
-                  <Button href={`/treatments/${item.id}`} variant="ternary" size="normal">
+                  <Link
+                    href={`/treatments/${item.id}`}
+                    className="inline-flex items-center justify-center rounded-lg sm:rounded-xl bg-white border border-gray-300 px-1 sm:px-2.5 md:px-3 py-2 sm:py-2.5 text-[10px] sm:text-xs md:text-sm font-semibold text-[#061627] hover:bg-gray-100 active:scale-[0.98] transition-all text-center whitespace-nowrap"
+                  >
                     View Details
-                  </Button>
+                  </Link>
                 </div>
-              </ScrollReveal>
+              </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </section>
   );

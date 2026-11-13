@@ -36,7 +36,7 @@ export function PageHero({
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-12 pt-32 sm:px-12 sm:pb-16 sm:pt-36 lg:px-20 lg:pb-16 xl:px-24">
         {/* Breadcrumbs */}
-        <div className="mb-4 flex items-center gap-1.5 text-xs font-medium text-gray-300">
+        {/* <div className="mb-4 flex items-center gap-1.5 text-xs font-medium text-gray-300">
           {breadcrumbs.map((crumb, idx) => (
             <React.Fragment key={crumb.label}>
               {idx > 0 && <ChevronRight size={13} className="text-gray-400" />}
@@ -54,7 +54,7 @@ export function PageHero({
           ))}
           <ChevronRight size={13} className="text-gray-400" />
           <span className="text-white font-semibold">{title}</span>
-        </div>
+        </div> */}
 
         <ScrollReveal direction="up" distance={15} duration={500}>
           <SectionLabel light>{label}</SectionLabel>

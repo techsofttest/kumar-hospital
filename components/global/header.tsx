@@ -128,7 +128,7 @@ export function Header() {
                       <Plus
                         size={14}
                         strokeWidth={3}
-                        className={`transition-transform duration-300 group-hover:rotate-45 ${isWhiteBg ? "text-white" : "text-white"
+                        className={`transition-transform duration-300 group-hover:rotate-45 ${isWhiteBg ? "text-[#4B5563]" : "text-white"
                           }`}
                       />
                     </Link>
